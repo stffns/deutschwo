@@ -1,8 +1,20 @@
 import React from 'react'
+import {auth, signOut} from "@/auth";
+import {Button} from "@/components/ui/button";
+import ROUTES from "@/constants/routes";
 
-const Page = () => {
+const Home = async () => {
+    const session =await auth()
+
     return (
-        <div className="h1-bold font-space-grotesk">Welcome to our Deutsch app</div>
+        <>
+        <h1 className="h1-bold font-space-grotesk">Welcome to our Deutsch app</h1>
+        <form className="px-10 pt-[100px]" action={async () => {
+            "use server";
+            await signOut({redirectTo: ROUTES.SIGN_IN});}}>
+            <Button type="submit">Log Out</Button>
+        </form>
+        </>
     )
 }
-export default Page
+export default Home
